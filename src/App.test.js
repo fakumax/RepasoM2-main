@@ -20,7 +20,7 @@ describe("<App />", () => {
       expect(wrapper.find('input[name="city"]')).toHaveLength(1);
     });
 
-    it('Renderiza un input con la propiedad "name" igual a "location"', () => {
+    it('Renderiza un textarea con la propiedad "name" igual a "location"', () => {
       expect(wrapper.find('textarea[name="location"]')).toHaveLength(1);
     });
 
@@ -98,7 +98,7 @@ describe("Funciones 'acciones'", () => {
       },
     });
   });
-  it('Debería retornar una action con las propiedades type "removeCity" y payload, su valor lo recibe por argumento:', () => {
+  it('Debería retornar una action con las propiedades type "RemoveCity" y payload, su valor lo recibe por argumento:', () => {
     const payload = { id: 2 };
     expect(removeCity(payload)).toEqual({
       type: "RemoveCity",

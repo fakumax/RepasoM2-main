@@ -7,19 +7,42 @@ const myCities={
 };
 
 
-export const reducer=(state,action) => {
 
+export const reducer=(state = myCities,action) => {
+  //console.log(action.payload);
+ 
+  switch (action.type){
+   
+    case ADD_CITY:
+      return { ...state, cities:[ action.payload]};
+    case REMOVE_CITY:
+       
+      return { cities: state.cities.filter(todo => todo.id !== action.payload)  } ;
+  
+    default:
+      return state;
+  }  
   
 }
 
 // ACTIONS -----------------------
 // por como esta diseñado el test, el id de la ciudad deberian colocarla al momento de agregarlo en el reducer
- export const addCity= ()=>{
-  
- }
+export const ADD_CITY = "AddCity";
+export const REMOVE_CITY = "RemoveCity";
 
- export const removeCity=()=>{
- }
+export const addCity= (payload)=>{
+  return  {
+    type: ADD_CITY,
+    payload: payload
+  }
+}
+
+export const removeCity=(payload)=>{
+  return {
+    type: REMOVE_CITY,
+    payload: payload
+  }
+}
 
 
  // COMPONENTE _--------------------
@@ -32,8 +55,15 @@ export const reducer=(state,action) => {
  // es suficiente.
 export const App=() => {
 
-  return(
-    <h1>Repaso</h1>
+  return (
+    
+      <form>
+        <input name = "city"  /> 
+        <textarea name= "location"/> 
+        <input name = "temperatura" /> 
+        <button type = "submit">Enviar</button>
+      </form>
+    
   )
 
 }
