@@ -1,4 +1,10 @@
 import React from "react";
+import './index.css';
+import './App.css';
+
+//import { addCity } from './App'
+
+
 
 
 // REDUCER _________________________------------
@@ -7,14 +13,18 @@ const myCities={
 };
 
 
-
+let id=0;
 export const reducer=(state = myCities,action) => {
   //console.log(action.payload);
  
   switch (action.type){
    
     case ADD_CITY:
-      return { ...state, cities:[ action.payload]};
+      id++
+      action.payload.id = id
+      return {
+        cities: state.cities.concat(action.payload)
+      }
     case REMOVE_CITY:
        
       return { cities: state.cities.filter(todo => todo.id !== action.payload)  } ;
@@ -29,11 +39,12 @@ export const reducer=(state = myCities,action) => {
 // por como esta diseñado el test, el id de la ciudad deberian colocarla al momento de agregarlo en el reducer
 export const ADD_CITY = "AddCity";
 export const REMOVE_CITY = "RemoveCity";
-
+//let id= 1;
 export const addCity= (payload)=>{
   return  {
     type: ADD_CITY,
-    payload: payload
+    payload
+ 
   }
 }
 
@@ -54,18 +65,60 @@ export const removeCity=(payload)=>{
  // Recuerden que la idea es practicar y tener conceptos claros, con que entiendan los tests y sientan que entendieron
  // es suficiente.
 export const App=() => {
+  const [input, setInput] = React.useState({
+    city :"",
+    location : "",
+    temperatura : ""
+  });
+  function handleChange(e) {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value
+      });
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
 
   return (
-    
-      <form>
-        <input name = "city"  /> 
-        <textarea name= "location"/> 
-        <input name = "temperatura" /> 
-        <button type = "submit">Enviar</button>
+     
+      <form onSubmit={handleSubmit} className = "App">
+          <input 
+            type="text" 
+            name = "city" 
+            value ={input.city} 
+            onChange = {handleChange} 
+            placeholder= "Ciudad..."
+          /> 
+                    
+          <textarea type="text" 
+            name= "location" 
+            value ={input.location} 
+            onChange = {handleChange}
+            placeholder = "Location..."
+          /> 
+         
+          <input 
+            type="text" 
+            name = "temperatura" 
+            value ={input.temperatura} 
+            onChange = {handleChange}
+            placeholder = "Temperature..."
+          /> 
+         
+          <button type = "submit"><span>Enviar</span></button>
       </form>
-    
+      
   )
-
-}
-
+ 
+  }
 export default App;
+// function mapDispatchToProps (dispatch) {
+//   return {
+//     addCity,
+//     removeCity
+//   }
+// }
+
+// export default connect(null, mapDispatchToProps)(App)

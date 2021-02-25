@@ -122,7 +122,7 @@ describe("Reducer", () => {
       temperatura:"32"
     };
 
-    expect(reducer({}, addCity(payload))).toEqual({
+    expect(reducer({cities:[]}, addCity(payload))).toEqual({
       cities:[{
         city: "Caracas",
       location: "Venezuela",
